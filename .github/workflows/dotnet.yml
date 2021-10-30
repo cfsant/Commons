@@ -27,4 +27,4 @@ jobs:
       uses: brandedoutcast/publish-nuget@v2.5.2
       with:
         PROJECT_FILE_PATH: Commons/Commons/Commons/Commons.csproj 
-        NUGET_KEY: ${{secrets.CFSant.Dev.Commons.API.Key}}
+        NUGET_KEY: ${{secrets.MAIN}}
