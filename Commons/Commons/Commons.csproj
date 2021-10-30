@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>1.0.0</Version>
-    <Authors>Commons</Authors>
+    <PackageId>CFSant.Dev.Commons</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Caio Fischer Santana</Authors>
     <Company>CFSant</Company>
     <PackageDescription>Commons lib</PackageDescription>
     <RepositoryUrl>https://github.com/cfsant/Commons.git</RepositoryUrl>
