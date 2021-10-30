@@ -12,7 +12,7 @@ jobs:
 
     env:
       NAME: CFSant.Dev.Commons
-      VERSION: 1.0.3
+      VERSION: 1.0.4
 
     steps:
       - uses: actions/checkout@v2
@@ -25,6 +25,6 @@ jobs:
       - name: Build
         run: dotnet build --no-restore ./Commons/Commons/Commons.csproj
       - name: Pack
-        run: dotnet pack -o ./${{env.NAME}}.${{env.VERSION}}.nupkg ./Commons/Commons/Commons.csproj
+        run: dotnet pack -o ./ ./Commons/Commons/Commons.csproj
       - name: Publish
         run: nuget push ./${{env.NAME}}.${{env.VERSION}}.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.MAIN}}
