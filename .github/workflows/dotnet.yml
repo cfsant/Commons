@@ -24,7 +24,4 @@ jobs:
     - name: Pack
       run: dotnet pack -o ./ ./Commons/Commons/Commons.csproj
     - name: Publish
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-        PROJECT_FILE_PATH: Commons/Commons/Commons/Commons.csproj 
-        NUGET_KEY: ${{secrets.MAIN}}
+      run: nuget push ./CFSant.Dev.Commons.1.0.0.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.MAIN}}
