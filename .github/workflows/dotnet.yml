@@ -20,9 +20,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Commons/Commons/Commons.csproj
     - name: Build
-      run: dotnet build --no-restore .\Commons\Commons\Commons.csproj
+      run: dotnet build --no-restore ./Commons/Commons/Commons.csproj
     - name: Pack
-      run: dotnet pack -o ./ .\Commons\Commons\Commons.csproj
+      run: dotnet pack -o ./ ./Commons/Commons/Commons.csproj
     - name: Publish
       uses: brandedoutcast/publish-nuget@v2.5.2
       with:
