@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>CFSant.Dev.Commons</PackageId>
-    <Version>1.0.1</Version>
+    <Version>$(VERSION)</Version>
     <Authors>Caio Fischer Santana</Authors>
     <Company>CFSant</Company>
     <PackageDescription>Commons lib</PackageDescription>
