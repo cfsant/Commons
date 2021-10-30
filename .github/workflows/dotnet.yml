@@ -24,4 +24,4 @@ jobs:
     - name: Pack
       run: dotnet pack -o ./ ./Commons/Commons/Commons.csproj
     - name: Publish
-      run: nuget push ./CFSant.Dev.Commons.1.0.0.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.MAIN}}
+      run: nuget push ./CFSant.Dev.Commons.1.0.1.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.MAIN}}
