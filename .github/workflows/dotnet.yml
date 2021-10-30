@@ -1,0 +1,30 @@
+name: CFSant.Dev.Commons
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.402
+    - name: Restore dependencies
+      run: dotnet restore .\Commons\Commons\Commons.csproj
+    - name: Build
+      run: dotnet build --no-restore .\Commons\Commons\Commons.csproj
+    - name: Pack
+      run: dotnet pack -o ./ .\Commons\Commons\Commons.csproj
+    - name: Publish
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+        PROJECT_FILE_PATH: Commons/Commons/Commons/Commons.csproj 
+        NUGET_KEY: ${{secrets.CFSant.Dev.Commons.API.Key}}
