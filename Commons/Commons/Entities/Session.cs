@@ -1,7 +1,7 @@
 ﻿using Commons.Interfaces;
 using System;
 
-namespace Entities.Public
+namespace Commons.Entities
 {
     public class Session : ISession
     {
