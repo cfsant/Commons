@@ -89,6 +89,15 @@ namespace Commons.Middlewares
         {
             bool result = true;
 
+            var providers = _configuration.AsEnumerable();
+            foreach (var provider in providers)
+            {
+                if (provider.Key == null || provider.Value == null)
+                {
+                    continue;
+                }
+            }
+
             var serializedGuestEndpoints = _configuration?.GetSection("GuestEndpoints")?.Value;
             if (serializedGuestEndpoints == null || serializedGuestEndpoints == default)
             {
