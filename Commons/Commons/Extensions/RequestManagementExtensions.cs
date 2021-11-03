@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Commons.Extensions
 {
-    public static class RequestManagementExtencions
+    public static class RequestManagementExtensions
     {
 		public static IServiceCollection AddRequestManagementExceptionMiddleware(this IServiceCollection services)
 		{

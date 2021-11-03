@@ -1,8 +1,10 @@
 ﻿using Commons.Middlewares.Exceptions;
 using Commons.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,14 +16,16 @@ namespace Commons.Middlewares
     public class RequestManagementMeddleware : IMiddleware
     {
         private readonly ILogger<RequestManagementMeddleware> _logger;
+        private readonly IConfiguration _configuration;
         private List<KeyValuePair<string, StringValues>> _headers;
         private string _authorization;
         private string _path;
         private JwtSecurityToken _token;
 
-        public RequestManagementMeddleware(ILogger<RequestManagementMeddleware> logger)
+        public RequestManagementMeddleware(ILogger<RequestManagementMeddleware> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -58,8 +62,7 @@ namespace Commons.Middlewares
 
         private void AuthorizationManagement()
         {
-            // This route can be acess with guest
-            if (_path == "/Profile/Authenticate" || _path == "/Profile/Create" || _path == "/Session/FetchByToken" || _path == "/Profile/GetDefaultOwnerId")
+            if (!this.AuthorizationManagementValidate())
             {
                 return;
             }
@@ -80,6 +83,30 @@ namespace Commons.Middlewares
             {
                 throw new Exception("Token expires in UTC: " + _token.ValidTo + " — Local: " + _token.ValidTo.ToLocalTime() + ".");
             }
+        }
+
+        private bool AuthorizationManagementValidate()
+        {
+            bool result = true;
+
+            var guestEndpoints = JsonConvert.DeserializeObject<string[]>(_configuration?.GetSection("Middlewares")?.GetSection("RequestManagementMeddleware")?.GetSection("AuthorizationManagement")?.GetSection("GuestEndpoints")?.Value);
+            if (guestEndpoints == null || guestEndpoints == default)
+            {
+                return result;
+            }
+
+            guestEndpoints.Any(endpoint => {
+                if (_path == endpoint)
+                {
+                    result = false;
+
+                    return true;
+                }
+
+                return false;
+            });
+
+            return result;
         }
     }
 }
