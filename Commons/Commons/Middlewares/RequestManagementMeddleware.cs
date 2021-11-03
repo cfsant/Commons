@@ -89,7 +89,7 @@ namespace Commons.Middlewares
         {
             bool result = true;
 
-            var serializedGuestEndpoints = _configuration?.GetSection("Middlewares")?.GetSection("RequestManagementMeddleware")?.GetSection("AuthorizationManagement")?.GetSection("GuestEndpoints")?.Value;
+            var serializedGuestEndpoints = _configuration?.GetSection("GuestEndpoints")?.Value;
             if (serializedGuestEndpoints == null || serializedGuestEndpoints == default)
             {
                 return result;
