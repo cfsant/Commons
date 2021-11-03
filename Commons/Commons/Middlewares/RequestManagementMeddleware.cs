@@ -89,7 +89,13 @@ namespace Commons.Middlewares
         {
             bool result = true;
 
-            var guestEndpoints = JsonConvert.DeserializeObject<string[]>(_configuration?.GetSection("Middlewares")?.GetSection("RequestManagementMeddleware")?.GetSection("AuthorizationManagement")?.GetSection("GuestEndpoints")?.Value);
+            var serializedGuestEndpoints = _configuration?.GetSection("Middlewares")?.GetSection("RequestManagementMeddleware")?.GetSection("AuthorizationManagement")?.GetSection("GuestEndpoints")?.Value;
+            if (serializedGuestEndpoints == null || serializedGuestEndpoints == default)
+            {
+                return result;
+            }
+
+            var guestEndpoints = JsonConvert.DeserializeObject<string[]>(serializedGuestEndpoints);
             if (guestEndpoints == null || guestEndpoints == default)
             {
                 return result;
