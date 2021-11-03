@@ -12,7 +12,7 @@ jobs:
 
     env:
       NAME: CFSant.Dev.Commons
-      VERSION: 1.0.9.8
+      VERSION: 1.0.9.9
 
     steps:
       - uses: actions/checkout@v2
@@ -28,5 +28,3 @@ jobs:
         run: dotnet pack -o ./ ./Commons/Commons/Commons.csproj -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
       - name: Publish
         run: nuget push ./${{env.NAME}}.${{env.VERSION}}.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.MAIN}} -SkipDuplicate
-      - name: Publish .snupkg
-        run: nuget push ./${{env.NAME}}.${{env.VERSION}}.snupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.MAIN}} -SkipDuplicate
