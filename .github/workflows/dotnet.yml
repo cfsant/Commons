@@ -28,3 +28,5 @@ jobs:
         run: dotnet pack -o ./ ./Commons/Commons/Commons.csproj -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
       - name: Publish
         run: nuget push ./${{env.NAME}}.${{env.VERSION}}.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.MAIN}}
+      - name: Publish .snupkg
+        run: nuget push ./${{env.NAME}}.${{env.VERSION}}.snupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.MAIN}}
