@@ -8,6 +8,8 @@
     <Company>CFSant</Company>
     <PackageDescription>Commons lib</PackageDescription>
     <RepositoryUrl>https://github.com/cfsant/Commons.git</RepositoryUrl>
+	<IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
