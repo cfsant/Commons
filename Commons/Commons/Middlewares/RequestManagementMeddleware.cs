@@ -21,6 +21,7 @@ namespace Commons.Middlewares
         private string _authorization;
         private string _path;
         private JwtSecurityToken _token;
+        private IEnumerable<IConfigurationSection> _current { get; set; }
 
         public RequestManagementMeddleware(ILogger<RequestManagementMeddleware> logger, IConfiguration configuration)
         {
@@ -89,13 +90,29 @@ namespace Commons.Middlewares
         {
             bool result = true;
 
-            var serializedGuestEndpoints = _configuration?.GetSection("GuestEndpoints")?.Value;
-            if (serializedGuestEndpoints == null || serializedGuestEndpoints == default)
+            this._current = _configuration.GetChildren();
+            if (this._current == null || this._current == default)
             {
                 return result;
             }
 
-            var guestEndpoints = JsonConvert.DeserializeObject<string[]>(serializedGuestEndpoints);
+            foreach (var config in this._current)
+            {
+                if (config.Key == null)
+                {
+                    continue;
+                }
+            }
+
+            var sGuestEndpoints = _configuration["GuestEndpoints"];
+
+            var serializedGuestEndpoints = _configuration?.GetSection("GuestEndpoints")?.Value;
+            if (sGuestEndpoints == null || sGuestEndpoints == default)
+            {
+                return result;
+            }
+
+            var guestEndpoints = JsonConvert.DeserializeObject<string[]>(sGuestEndpoints);
             if (guestEndpoints == null || guestEndpoints == default)
             {
                 return result;
